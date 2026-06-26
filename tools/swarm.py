@@ -293,6 +293,8 @@ def rule_field_bitop(name, ins, b):
     return None
 
 
+
+
 def rule_cmp_eq(name, ins, b):
     # <load> r0,[r0(,#off)] ; cmp r0,#k ; moveq r0,#a ; movne r0,#bv ; bx lr  -> return p[i] ==/!= k
     if len(ins) == 5 and ins[0].mnemonic in LOADS and ins[1].mnemonic == "cmp" \

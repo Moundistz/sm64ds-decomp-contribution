@@ -68,7 +68,17 @@ def main(rom_path: str) -> None:
     for ov_id, ov in arm9_overlays.items():
         (ov_dir / f"overlay_{ov_id:04d}.bin").write_bytes(ov.data)
 
-    print(f"\nWrote arm9.bin, arm7.bin and {len(arm9_overlays)} overlays to {out}")
+    # Write overlays.yaml expected by tools/modules.py
+    # Format: list of {id, base_address} entries, one per line pair.
+    dsd_dir = out / "dsd" / "arm9_overlays"
+    dsd_dir.mkdir(parents=True, exist_ok=True)
+    yaml_lines = []
+    for ov_id, ov in sorted(arm9_overlays.items()):
+        yaml_lines.append(f"- id: {ov_id}")
+        yaml_lines.append(f"  base_address: {ov.ramAddress}")
+    (dsd_dir / "overlays.yaml").write_text("\n".join(yaml_lines) + "\n")
+
+    print(f"\nWrote arm9.bin, arm7.bin, {len(arm9_overlays)} overlays, and overlays.yaml to {out}")
 
 
 if __name__ == "__main__":

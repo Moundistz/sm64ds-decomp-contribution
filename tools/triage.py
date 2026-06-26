@@ -80,7 +80,7 @@ def compile_candidate(csrc, name):
     cpp = csrc.startswith("//cpp")
     with tempfile.TemporaryDirectory() as td:
         cf = pathlib.Path(td) / ("c.cpp" if cpp else "c.c")
-        cf.write_text(csrc)
+        cf.write_text(csrc, encoding="utf-8")
         obj = M.compile_c(cf, M.CANONICAL, S.CPP_FLAGS if cpp else M.DEFAULT_FLAGS)
     if obj is None:
         return None, None
