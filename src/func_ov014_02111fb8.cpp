@@ -1,0 +1,1 @@
+//cpp struct Actor {     void HugeLandingDust(bool); };  extern "C" int func_0201267c(unsigned int, void *);  extern "C" int func_ov014_02111fb8(char *c) {     func_0201267c(0x39, c + 0x74);     ((Actor *)c)->HugeLandingDust(1); }
